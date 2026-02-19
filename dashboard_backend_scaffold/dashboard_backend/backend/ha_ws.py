@@ -1,0 +1,1 @@
+# HA WebSocket client placeholder

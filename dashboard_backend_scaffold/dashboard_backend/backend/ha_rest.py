@@ -1,0 +1,1 @@
+# HA REST helper placeholder
