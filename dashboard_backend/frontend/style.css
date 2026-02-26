@@ -1,0 +1,908 @@
+/* 
+ * Home Assistant Dashboard - LCARS Integration Styles
+ * Custom styles for dashboard elements in LCARS theme
+ */
+
+/* =============================================================================
+   LCARS Color Variables Override (extend classic.css)
+   ============================================================================= */
+:root {
+    --accent-success: #4ade80;
+    --accent-warning: #fbbf24;
+    --accent-danger: #ef4444;
+    --accent-info: #38bdf8;
+    --dash-bg: rgba(0, 0, 0, 0.6);
+    --dash-border: var(--african-violet);
+}
+
+/* =============================================================================
+   Header Status & Navigation Layout
+   ============================================================================= */
+.data-cascade-button-group {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.data-cascade-wrapper {
+    flex-shrink: 0;
+}
+
+/* =============================================================================
+   Section Navigation
+   ============================================================================= */
+#main-nav {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 0.5rem;
+    max-width: 100%;
+    flex-grow: 1;
+}
+
+#main-nav .nav-btn {
+    font-family: inherit;
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+    background: var(--butterscotch);
+    border: none;
+    border-radius: 0 12px 12px 0;
+    color: black;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+}
+
+#main-nav .nav-btn:hover {
+    background: var(--sunflower);
+}
+
+#main-nav .nav-btn.active {
+    background: var(--sunflower);
+}
+
+#main-nav .nav-btn.room-nav {
+    background: var(--african-violet);
+}
+
+#main-nav .nav-btn[data-section="security"] {
+    background: var(--mars);
+}
+
+#main-nav .nav-btn.room-nav:hover,
+#main-nav .nav-btn.room-nav.active {
+    background: var(--sunflower);
+}
+
+.lcars-section {
+    display: none;
+}
+
+.lcars-section.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================================================================
+   LCARS Card Grid
+   ============================================================================= */
+.lcars-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.lcars-card {
+    background: var(--dash-bg);
+    border: 3px solid var(--african-violet);
+    border-radius: 0 20px 20px 0;
+    padding: 1rem 1.5rem;
+    position: relative;
+}
+
+.lcars-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    background: var(--african-violet);
+    border-radius: 0 0 0 0;
+}
+
+.lcars-card h2,
+.lcars-card h3 {
+    color: var(--african-violet);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.lcars-card .value,
+.lcars-card .big-value {
+    color: var(--orange);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.lcars-card .big-value {
+    font-size: 4rem;
+}
+
+.lcars-card.doorbell-card {
+    grid-column: span 2;
+}
+
+.lcars-card.doorbell-card::before {
+    background: var(--butterscotch);
+}
+
+.doorbell-camera-wrapper {
+    position: relative;
+    cursor: pointer;
+    aspect-ratio: 16 / 9;
+    background: black;
+    border-radius: 0 10px 10px 0;
+    overflow: hidden;
+    margin-top: 0.5rem;
+}
+
+.doorbell-camera-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.lcars-card.comfort-main {
+    grid-column: span 2;
+}
+
+.lcars-card.comfort-main::before {
+    background: var(--butterscotch);
+}
+
+.lcars-card.energy::before {
+    background: var(--gold);
+}
+
+/* =============================================================================
+   Entity Grid (Quick Controls)
+   ============================================================================= */
+.quick-controls-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.quick-controls-header h2 {
+    margin: 0;
+}
+
+.lcars-collapse-btn {
+    font-family: inherit;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    background: var(--gray);
+    border: none;
+    border-radius: 0 10px 10px 0;
+    color: black;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.lcars-collapse-btn:hover {
+    background: var(--sunflower);
+}
+
+.entity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+}
+
+.lcars-entity-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: var(--gray);
+    border: none;
+    border-radius: 10px 10px 10px 30px;
+    color: black;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-height: 80px;
+}
+
+.lcars-entity-button:hover {
+    filter: brightness(1.15);
+}
+
+.lcars-entity-button.on {
+    background: var(--sunflower);
+}
+
+.lcars-entity-button .icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.lcars-entity-button .name {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    text-align: center;
+    word-break: break-word;
+}
+
+/* =============================================================================
+   Room Sections
+   ============================================================================= */
+.rooms-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.lcars-room-section {
+    background: var(--dash-bg);
+    border: 2px solid var(--bluey);
+    border-radius: 0 15px 15px 0;
+    overflow: hidden;
+}
+
+.lcars-room-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--bluey);
+    color: black;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.lcars-room-header:hover {
+    filter: brightness(1.1);
+}
+
+.room-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.room-expand-icon {
+    transition: transform 0.2s ease;
+}
+
+.lcars-room-section.collapsed .room-expand-icon {
+    transform: rotate(-90deg);
+}
+
+.lcars-room-section.collapsed .room-entities {
+    display: none;
+}
+
+.room-stats {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.room-entities {
+    padding: 0.5rem;
+}
+
+/* =============================================================================
+   Control Room Sections (grouped by room)
+   ============================================================================= */
+#quick-controls-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.lcars-control-room {
+    background: var(--dash-bg);
+    border: 2px solid var(--butterscotch);
+    border-radius: 0 15px 15px 0;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* Collapsed state - just the header, inline */
+.lcars-control-room.collapsed {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.lcars-control-room.collapsed .lcars-room-header {
+    border-radius: 0 15px 15px 0;
+}
+
+.lcars-control-room.collapsed .control-room-buttons {
+    display: none;
+}
+
+/* Expanded state - full width, buttons flow horizontally */
+.lcars-control-room.expanded {
+    width: 100%;
+    flex-basis: 100%;
+}
+
+.lcars-control-room.expanded .room-expand-icon {
+    transform: rotate(90deg);
+}
+
+.lcars-control-room .lcars-room-header {
+    background: var(--butterscotch);
+}
+
+.control-room-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.75rem;
+}
+
+.control-room-buttons .lcars-entity-button {
+    min-width: 100px;
+    flex: 0 0 auto;
+}
+
+.lcars-room-entity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(153, 153, 204, 0.2);
+}
+
+.lcars-room-entity:last-child {
+    border-bottom: none;
+}
+
+.room-entity-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.room-entity-name {
+    color: var(--font-color);
+    font-size: 0.9rem;
+}
+
+.room-entity-domain {
+    color: var(--orange);
+    font-size: 0.7rem;
+}
+
+.room-entity-state {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* =============================================================================
+   Toggle Buttons
+   ============================================================================= */
+.lcars-toggle {
+    width: 50px;
+    height: 26px;
+    background: var(--gray);
+    border: none;
+    border-radius: 13px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s ease;
+}
+
+.lcars-toggle::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background: black;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+}
+
+.lcars-toggle.on {
+    background: var(--sunflower);
+}
+
+.lcars-toggle.on::after {
+    transform: translateX(24px);
+}
+
+/* =============================================================================
+   State Values
+   ============================================================================= */
+.state-value {
+    font-family: inherit;
+    font-size: 0.85rem;
+}
+
+.state-value.on {
+    color: var(--sunflower);
+}
+
+.state-value.off {
+    color: var(--gray);
+}
+
+.state-value.unavailable {
+    color: var(--tomato);
+}
+
+/* =============================================================================
+   Entity List (All Entities)
+   ============================================================================= */
+.entity-filter {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.lcars-select,
+.lcars-input {
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    background: black;
+    border: 2px solid var(--african-violet);
+    border-radius: 0 15px 15px 0;
+    color: var(--font-color);
+    outline: none;
+}
+
+.lcars-select:focus,
+.lcars-input:focus {
+    border-color: var(--sunflower);
+}
+
+.lcars-select option {
+    background: black;
+    color: var(--font-color);
+}
+
+.entity-count {
+    color: var(--orange);
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.entity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.lcars-entity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-left: 4px solid var(--bluey);
+    border-radius: 0 8px 8px 0;
+}
+
+.lcars-entity-item:nth-child(even) {
+    border-left-color: var(--butterscotch);
+}
+
+.entity-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.entity-name {
+    color: var(--font-color);
+    font-size: 0.9rem;
+}
+
+.entity-id {
+    color: var(--orange);
+    font-size: 0.7rem;
+    font-family: monospace;
+}
+
+.entity-state {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* =============================================================================
+   Cameras
+   ============================================================================= */
+.cameras-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.camera-item {
+    background: var(--dash-bg);
+    border: 3px solid var(--ice);
+    border-radius: 0 20px 20px 0;
+    overflow: hidden;
+}
+
+.camera-image-wrapper {
+    position: relative;
+    cursor: pointer;
+    aspect-ratio: 16 / 9;
+    background: black;
+}
+
+.camera-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.camera-image.loading {
+    opacity: 0.5;
+}
+
+.camera-live-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: var(--tomato);
+    color: black;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.camera-info {
+    padding: 0.75rem;
+}
+
+.camera-name-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+
+.camera-name {
+    color: var(--font-color);
+    font-weight: 700;
+}
+
+.camera-status {
+    font-size: 0.75rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 4px;
+}
+
+.camera-status.idle {
+    background: var(--gray);
+    color: black;
+}
+
+.camera-status.streaming {
+    background: var(--accent-success);
+    color: black;
+}
+
+.camera-status.unavailable {
+    background: var(--tomato);
+    color: black;
+}
+
+.camera-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.camera-updated {
+    color: var(--orange);
+    font-size: 0.75rem;
+}
+
+.camera-refresh-btn {
+    background: var(--african-violet);
+    border: none;
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+/* =============================================================================
+   Camera Fullscreen
+   ============================================================================= */
+.camera-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.camera-fullscreen .close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--tomato);
+    color: black;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0 10px 10px 0;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.fullscreen-stream-container {
+    position: relative;
+    max-width: 95%;
+    max-height: 70vh;
+}
+
+.fullscreen-stream {
+    max-width: 100%;
+    max-height: 70vh;
+    border: 4px solid var(--ice);
+    border-radius: 0 20px 20px 0;
+}
+
+.stream-live-indicator {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--tomato);
+    color: black;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.stream-live-indicator.connected {
+    background: var(--accent-success);
+}
+
+.fullscreen-camera-info {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.fullscreen-camera-name {
+    color: var(--font-color);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.fullscreen-camera-controls {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.stream-mode-btn {
+    background: var(--gray);
+    color: black;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.stream-mode-btn.active {
+    background: var(--sunflower);
+}
+
+.refresh-rate-select {
+    background: black;
+    color: var(--font-color);
+    border: 2px solid var(--african-violet);
+    padding: 0.5rem;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.stream-status {
+    color: var(--orange);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+/* =============================================================================
+   Toast Notifications
+   ============================================================================= */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.lcars-toast {
+    background: var(--african-violet);
+    color: black;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0 15px 15px 0;
+    font-weight: 700;
+    animation: slideIn 0.3s ease;
+}
+
+.lcars-toast.success {
+    background: var(--accent-success);
+}
+
+.lcars-toast.error {
+    background: var(--tomato);
+}
+
+.lcars-toast.info {
+    background: var(--ice);
+}
+
+@keyframes slideIn {
+    from { 
+        opacity: 0; 
+        transform: translateX(100px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateX(0); 
+    }
+}
+
+/* =============================================================================
+   Empty States
+   ============================================================================= */
+.lcars-empty {
+    padding: 2rem;
+    text-align: center;
+    color: var(--gray);
+    font-size: 1rem;
+    border: 2px dashed var(--gray);
+    border-radius: 0 15px 15px 0;
+}
+
+/* =============================================================================
+   Connection Indicator Panel
+   ============================================================================= */
+.connection-indicator {
+    transition: background-color 0.3s ease;
+}
+
+/* =============================================================================
+   Scrollbar Styling
+   ============================================================================= */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: black;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--african-violet);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--sunflower);
+}
+
+/* =============================================================================
+   Mobile Responsive Adjustments
+   ============================================================================= */
+@media (max-width: 750px) {
+    .lcars-card-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .lcars-card.comfort-main {
+        grid-column: span 1;
+    }
+    
+    .lcars-card .big-value {
+        font-size: 3rem;
+    }
+    
+    .entity-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .cameras-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .entity-filter {
+        flex-direction: column;
+    }
+    
+    .lcars-select,
+    .lcars-input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 525px) {
+    .entity-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+    
+    .lcars-entity-button {
+        min-height: 60px;
+        padding: 0.75rem;
+    }
+    
+    .lcars-entity-button .icon {
+        font-size: 1.2rem;
+    }
+    
+    .lcars-entity-button .name {
+        font-size: 0.65rem;
+    }
+    
+    .room-controls-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* =============================================================================
+   Room Sections (Dynamic per-room pages)
+   ============================================================================= */
+#room-sections-container .lcars-section {
+    display: none;
+}
+
+#room-sections-container .lcars-section.active {
+    display: block;
+}
+
+.room-controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 0.75rem;
+    padding: 1rem 0;
+}

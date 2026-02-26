@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="date=no">
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Home Assistant Dashboard - LCARS Interface">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="LCARS Home">
+    
+    <title>LCARS • Home Assistant</title>
+    
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+    
+    <link rel="stylesheet" type="text/css" href="/static/lcars/classic.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- LCARS Audio Elements -->
+    <audio id="audio1" src="/static/lcars/beep1.mp3" preload="auto"></audio>
+    <audio id="audio2" src="/static/lcars/beep2.mp3" preload="auto"></audio>
+    <audio id="audio3" src="/static/lcars/beep3.mp3" preload="auto"></audio>
+    <audio id="audio4" src="/static/lcars/beep4.mp3" preload="auto"></audio>
+    
+    <section class="wrap-standard" id="column-3">
+        <div class="wrap">
+            <div class="left-frame-top">
+                <button onclick="playSoundAndRedirect('audio2', '#')" class="panel-1-button">LCARS</button>
+                <div class="panel-2">HA<span class="hop">-DASH</span></div>
+            </div>
+            <div class="right-frame-top">
+                <div class="banner">GEEKBASE/COMFORT • <span id="stardate">000000:00:00:00</span></div>
+                <div class="data-cascade-button-group">
+                    <div class="data-cascade-wrapper" id="default">
+                        <!-- Connection Status Display -->
+                        <div class="data-column" id="status-column">
+                            <div class="dc-row-1" id="connection-status-text">CONNECTING</div>
+                            <div class="dc-row-2" id="entity-count-display">ENTITIES: --</div>
+                            <div class="dc-row-3" id="comfort-display">COMFORT: --</div>
+                            <div class="dc-row-4" id="temp-display">TEMP: --°C</div>
+                            <div class="dc-row-5" id="humidity-display">HUMIDITY: --%</div>
+                            <div class="dc-row-6" id="energy-display">ENERGY: -- kWh</div>
+                        </div>
+                    </div>
+                    <nav id="main-nav">
+                        <button onclick="showSection('comfort'); playSound('audio2')" class="nav-btn active" data-section="comfort">COMFORT</button>
+                        <button onclick="showSection('security'); playSound('audio2')" class="nav-btn" data-section="security">SECURITY</button>
+                        <!-- Room buttons will be added dynamically -->
+                    </nav>
+                </div>
+                <div class="bar-panel first-bar-panel">
+                    <div class="bar-1"></div>
+                    <div class="bar-2"></div>
+                    <div class="bar-3"></div>
+                    <div class="bar-4"></div>
+                    <div class="bar-5"></div>
+                </div>
+            </div>
+        </div>
+        <div class="wrap" id="gap">
+            <div class="left-frame">
+                <button onclick="topFunction(); playSound('audio4')" id="topBtn"><span class="hop">screen</span> top</button>
+                <div>
+                    <div class="panel-3"><span class="hop">STATUS</span></div>
+                    <div class="panel-4 connection-indicator" id="connection-panel">
+                        <span class="hop">CONN</span>
+                    </div>
+                    <div class="panel-5"><span class="hop">ROOMS</span></div>
+                    <div class="panel-6"><span class="hop">LIGHTS</span></div>
+                    <div class="panel-7"><span class="hop">CLIMATE</span></div>
+                    <div class="panel-8"><span class="hop">SENSORS</span></div>
+                    <div class="panel-9"><span class="hop">SECURITY</span></div>
+                </div>
+                <div>
+                    <div class="panel-10"><span class="hop">SYS</span></div>
+                </div>
+            </div>
+            <div class="right-frame">
+                <div class="bar-panel">
+                    <div class="bar-6"></div>
+                    <div class="bar-7"></div>
+                    <div class="bar-8"></div>
+                    <div class="bar-9"></div>
+                    <div class="bar-10"></div>
+                </div>
+                <main id="lcars-main">
+                    <!-- Comfort Section -->
+                    <section class="lcars-section active" id="section-comfort">
+                        <h1>Environmental Status</h1>
+                        <div class="lcars-card-grid">
+                            <div class="lcars-card doorbell-card">
+                                <h2>Doorbell</h2>
+                                <div class="doorbell-camera-wrapper" onclick="openDoorbellFullscreen()">
+                                    <img class="doorbell-camera-image" id="doorbell-image" alt="Doorbell Camera">
+                                    <span class="camera-live-badge">● View</span>
+                                </div>
+                            </div>
+                            <div class="lcars-card">
+                                <h3>Temperature</h3>
+                                <div class="value" id="temperature">--°C</div>
+                            </div>
+                            <div class="lcars-card">
+                                <h3>Humidity</h3>
+                                <div class="value" id="humidity">--%</div>
+                            </div>
+                            <div class="lcars-card energy">
+                                <h3>Energy Today</h3>
+                                <div class="value" id="energy-total">-- kWh</div>
+                            </div>
+                        </div>
+                        
+                        <div class="quick-controls-header">
+                            <h2>Quick Controls</h2>
+                            <button class="lcars-collapse-btn" onclick="collapseAllRooms(); playSound('audio1')">COLLAPSE ALL</button>
+                        </div>
+                        <div class="entity-grid" id="quick-controls-grid">
+                            <!-- Most used controls - Populated by JS -->
+                        </div>
+                    </section>
+
+                    <!-- Security Section (Cameras) -->
+                    <section class="lcars-section" id="section-security">
+                        <h1>Security Sensors</h1>
+                        <div class="cameras-grid" id="cameras-grid">
+                            <!-- Populated by JS -->
+                        </div>
+                    </section>
+
+                    <!-- Room sections will be added dynamically by JS -->
+                    <div id="room-sections-container"></div>
+                </main>
+                <footer>
+                    Home Assistant Dashboard • LCARS Interface by <a href="https://www.thelcars.com">TheLCARS.com</a>
+                </footer>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Toast Notifications Container -->
+    <div id="toast-container" class="toast-container"></div>
+    
+    <script type="text/javascript" src="/static/lcars/lcars.js"></script>
+    <script type="text/javascript" src="/static/app.js"></script>
+    <div class="headtrim"></div>
+    <div class="baseboard"></div>
+</body>
+</html>

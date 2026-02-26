@@ -1,0 +1,22 @@
+{
+    "name": "LCARS Home Assistant",
+    "short_name": "LCARS Home",
+    "description": "LCARS-style Home Assistant dashboard interface",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#cc99ff",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23000' width='100' height='100'/><rect fill='%23cc99ff' x='5' y='5' width='20' height='90' rx='10'/><rect fill='%23ff9966' x='30' y='5' width='65' height='25' rx='0 12 12 0'/><rect fill='%238899ff' x='30' y='35' width='65' height='25' rx='0 12 12 0'/><rect fill='%23ffcc99' x='30' y='65' width='65' height='30' rx='0 12 12 0'/></svg>",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["utilities", "lifestyle"],
+    "lang": "en",
+    "dir": "ltr",
+    "prefer_related_applications": false
+}
